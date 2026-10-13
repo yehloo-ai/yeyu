@@ -1466,3 +1466,21 @@ dialog {
     padding-right: 64px;
   }
 }
+
+/* Unified Yeyu mark; preserved at narrow viewport widths. */
+.compact-header .brand-logo {
+  display: block;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 3px #34516b18);
+}
+@media (max-width: 600px) {
+  .compact-header .brand-logo {
+    width: 25px;
+    height: 25px;
+  }
+  .compact-header .brand {
+    gap: 6px;
+  }
+}

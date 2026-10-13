@@ -47,3 +47,14 @@ for (const name of [
 console.log(
   "Manifest, icon paths, packaging allowlist and private-data scan passed",
 );
+
+const html = await fs.readFile(path.join(extension, "newtab.html"), "utf8");
+assert.ok(html.includes('src="icons/logo.svg"'), "Header logo missing");
+assert.ok(html.includes('href="icons/icon-32.png"'), "Tab favicon missing");
+assert.ok((await fs.stat(path.join(extension, "icons/logo.svg"))).isFile());
+for (const [size, icon] of Object.entries(manifest.icons)) {
+  const bytes = await fs.readFile(path.join(extension, icon));
+  assert.equal(bytes.readUInt32BE(16), Number(size));
+  assert.equal(bytes.readUInt32BE(20), Number(size));
+}
+console.log("Header mark, favicon and PNG icon dimensions verified");
