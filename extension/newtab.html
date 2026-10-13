@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>页屿 · 常用网页工作台</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="compact-header">
+      <a class="brand" href="newtab.html"
+        ><span class="logo" aria-hidden="true">◫</span> 页屿</a
+      ><span id="view-label" class="view-label">全部入口</span>
+      <div class="actions header-actions">
+        <input
+          id="search"
+          type="search"
+          placeholder="搜索入口"
+          aria-label="搜索入口"
+        /><button id="check">↻ 检查更新</button
+        ><button class="primary" id="add">＋ 添加</button
+        ><button id="more" aria-haspopup="dialog">更多 ···</button>
+      </div>
+    </header>
+    <main>
+      <section id="grid" class="grid" aria-label="快捷入口"></section>
+      <p id="empty" hidden>
+        这里还没有入口。添加网址，或导入你的 Chrome 书签。
+      </p>
+      <footer>
+        <span>● 数据保存在当前浏览器</span
+        ><span>数字 = RSS 新增条目　·　圆点 = 页面变化　·　! = 检查异常</span>
+      </footer>
+    </main>
+    <dialog id="preferences">
+      <div class="dialog-head">
+        <h2>入口管理</h2>
+        <button data-close="preferences" aria-label="关闭">✕</button>
+      </div>
+      <p class="hint">
+        有更新的入口：<span id="updated">0</span> · 浏览器运行时每 30
+        分钟尝试检查
+      </p>
+      <nav id="filters">
+        <button class="selected" data-filter="all">全部入口</button
+        ><button data-filter="updates">有更新 <span id="count">0</span></button
+        ><button data-filter="watch">正在关注</button
+        ><button data-filter="errors">检查异常</button>
+      </nav>
+      <div id="groups" class="groups"></div>
+      <section class="appearance-options">
+        <h3>视觉风格</h3>
+        <div class="theme-choices">
+          <button type="button" data-theme-option="moss" aria-pressed="true">
+            <span class="theme-swatch moss"></span>A · 苔绿工作台</button
+          ><button type="button" data-theme-option="paper" aria-pressed="false">
+            <span class="theme-swatch paper"></span>B · 纸白图库</button
+          ><button type="button" data-theme-option="blue" aria-pressed="false">
+            <span class="theme-swatch blue"></span>C · 浅色浮层</button
+          ><button type="button" data-theme-option="cream" aria-pressed="false">
+            <span class="theme-swatch cream"></span>D · 奶油暖色</button
+          ><button
+            type="button"
+            data-theme-option="minimal"
+            aria-pressed="false"
+          >
+            <span class="theme-swatch minimal"></span>E · 极简白
+          </button>
+        </div>
+        <p class="hint">拖动卡片即可调整顺序，刷新后仍保留。</p>
+      </section>
+      <div class="manage-actions">
+        <button id="import">导入 Chrome 书签</button
+        ><button id="backup">备份入口</button
+        ><button id="restore">导入文件</button>
+      </div>
+    </dialog>
+    <dialog id="editor">
+      <form id="form">
+        <div class="dialog-head">
+          <div>
+            <h2 id="form-title">添加入口</h2>
+            <p class="editor-subtitle">调整名称和网址，即可保存。</p>
+          </div>
+          <button type="button" data-close="editor" aria-label="关闭">✕</button>
+        </div>
+        <div class="basic-fields">
+          <label
+            >网站名称<input
+              name="title"
+              required
+              maxlength="100"
+              placeholder="例如：设计资讯" /></label
+          ><label
+            >网页地址<input
+              name="url"
+              type="url"
+              required
+              placeholder="https://..." /></label
+          ><label
+            >分组 <span class="optional">选填</span
+            ><input
+              name="group"
+              maxlength="40"
+              placeholder="工作 / 设计 / AI 工具"
+              list="group-options" /></label
+          ><datalist id="group-options"></datalist>
+        </div>
+        <div class="editor-options">
+          <details id="thumbnail-options">
+            <summary>
+              <span>网页截图</span
+              ><span id="thumbnail-status" class="option-status">未设置</span>
+            </summary>
+            <div class="option-body">
+              <img id="thumb-preview" alt="缩略图预览" hidden /><label
+                class="upload-label"
+                >更换图片<input
+                  id="thumb-file"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp" /></label
+              ><button id="remove-thumb" type="button" hidden>移除图片</button>
+              <p class="hint">
+                打开网站后，也可点击 Chrome 工具栏的「页屿」图标保存当前画面。
+              </p>
+            </div>
+          </details>
+          <details id="monitor-options">
+            <summary>
+              <span>更新提醒</span
+              ><span id="monitor-status" class="option-status">未开启</span>
+            </summary>
+            <div class="option-body">
+              <label
+                >提醒方式<select name="mode">
+                  <option value="off">关闭提醒</option>
+                  <option value="rss">新内容数量 · RSS 订阅</option>
+                  <option value="page">网页变化 · 显示圆点</option>
+                </select></label
+              ><label id="feed-field" hidden
+                >订阅地址<input
+                  name="feed"
+                  type="url"
+                  placeholder="https://example.com/feed.xml" /></label
+              ><label id="selector-field" hidden
+                >监测区域 <span class="optional">选填</span
+                ><input
+                  name="selector"
+                  placeholder="默认正文；也可填写 .news-list"
+                /><small
+                  >仅比较指定区域的文字。动态登录页面可能无法读取。</small
+                ></label
+              >
+              <p class="hint">
+                首次检查记录当前内容，之后有变化再提醒。开启时会请求网站读取权限。
+              </p>
+            </div>
+          </details>
+        </div>
+        <p id="form-error" role="alert"></p>
+        <div class="dialog-actions editor-footer">
+          <button type="button" id="delete" class="danger" hidden>
+            删除入口</button
+          ><button type="button" data-close="editor">取消</button
+          ><button type="submit" class="primary">保存</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="details">
+      <div class="dialog-head">
+        <h2 id="detail-title">更新详情</h2>
+        <button data-close="details" aria-label="关闭">✕</button>
+      </div>
+      <div id="detail-body"></div>
+      <div class="dialog-actions">
+        <button id="read" class="primary">标记已读</button>
+      </div>
+    </dialog>
+    <input id="file" type="file" accept=".json,.html" hidden />
+    <div id="toast" role="status" hidden></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

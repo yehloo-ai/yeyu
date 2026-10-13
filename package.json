@@ -1,0 +1,23 @@
+{
+  "name": "yeyu-new-tab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A local-first Chrome new-tab workspace with visual shortcuts and update badges.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test tests/core.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "check": "node scripts/check-release.mjs",
+    "package": "python3 scripts/package.py",
+    "format": "prettier --write extension tests scripts/*.mjs *.md .github/workflows/ci.yml package.json",
+    "format:check": "prettier --check extension tests scripts/*.mjs *.md .github/workflows/ci.yml package.json"
+  },
+  "devDependencies": {
+    "playwright": "1.64.0",
+    "prettier": "3.9.10"
+  }
+}

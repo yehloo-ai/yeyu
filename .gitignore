@@ -1,0 +1,8 @@
+node_modules/
+dist/
+test-results/
+*.zip
+.DS_Store
+.env*
+fvd-migration.json
+migration/
