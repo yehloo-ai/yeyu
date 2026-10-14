@@ -818,21 +818,25 @@ footer {
 }
 .card-edit {
   position: absolute;
-  bottom: 8px;
-  right: 8px;
+  bottom: 10px;
+  right: 9px;
   z-index: 3;
-  padding: 6px 12px;
-  border: 1px solid #28563e;
+  padding: 3px 8px;
+  border: 1px solid var(--hover);
   border-radius: 6px;
-  background: #28563e;
-  color: #fff;
+  background: transparent;
+  color: var(--accent);
   font-size: 11px;
+  line-height: 16px;
+  box-shadow: none;
   opacity: 0;
   pointer-events: none;
   transform: translateY(4px);
   transition:
     opacity 0.16s,
-    transform 0.16s;
+    transform 0.16s,
+    background 0.16s,
+    border-color 0.16s;
 }
 .card:hover .card-edit,
 .card:focus-within .card-edit {
@@ -841,7 +845,12 @@ footer {
   transform: translateY(0);
 }
 .card-edit:hover {
-  background: #193e2a;
+  background: var(--soft);
+  border-color: var(--accent);
+}
+.card-edit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 .badge {
   border: 2px solid white;
@@ -886,9 +895,8 @@ footer {
     min-height: 25px;
   }
   .card-edit {
-    bottom: 6px;
+    bottom: 8px;
     right: 6px;
-    padding: 5px 9px;
   }
   .add-card {
     min-height: 140px;
@@ -1106,15 +1114,13 @@ footer {
 .card:focus-within h3 {
   color: var(--text);
 }
-.card-edit,
 .primary,
 .logo {
   background: var(--accent);
   border-color: var(--accent);
   color: white;
 }
-.primary:hover,
-.card-edit:hover {
+.primary:hover {
   filter: brightness(1.15);
   background: var(--accent);
 }
@@ -1140,8 +1146,7 @@ button {
 button:hover {
   background: var(--soft);
 }
-.primary,
-.card-edit {
+.primary {
   background: var(--accent);
   color: #fff;
 }
@@ -1445,16 +1450,10 @@ dialog {
   z-index: 2;
 }
 [data-theme="blue"] .card:is(:hover, :focus-within) h3 {
-  padding-right: 64px;
+  padding-right: 58px;
   background: #fff;
   color: #1a4264;
   font-weight: 650;
-}
-[data-theme="blue"] .card-edit {
-  bottom: 8px;
-  background: #365d7f;
-  border-color: #365d7f;
-  box-shadow: 0 2px 6px #253b5033;
 }
 @media (prefers-reduced-motion: reduce) {
   .grid:not(.is-dragging) .card[data-id]:is(:hover, :focus-within) {
@@ -1463,7 +1462,7 @@ dialog {
 }
 @media (hover: none) {
   [data-theme="blue"] .card h3 {
-    padding-right: 64px;
+    padding-right: 58px;
   }
 }
 

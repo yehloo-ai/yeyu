@@ -22,7 +22,7 @@
 
 通过 GitHub Releases 发布可加载的扩展包，**尚未上架 Chrome Web Store**。
 
-1. 从 Releases 下载 `yeyu-v1.0.1.zip` 并解压，或下载源码。
+1. 从 Releases 下载 `yeyu-v1.0.2.zip` 并解压，或下载源码。
 2. 在 Chrome 中打开 `chrome://extensions`，开启「开发者模式」。
 3. 点击「加载未打包的扩展程序」，选择解压后的 `extension` 文件夹。
 4. 打开新标签页。如有其他新标签页扩展，请在扩展管理页停用冲突扩展。
